@@ -1,25 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Checkbox, createTheme, styled, ThemeProvider } from '@mui/material';
+import { orange } from '@mui/material/colors';
+
+
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
+}
+
+const theme = createTheme({
+  status: {
+    danger: orange[500],
+  },
+});
+
+const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
+  color: theme.status.danger,
+  '&.Mui-checked': {
+    color: theme.status.danger,
+  },
+}));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CustomCheckbox defaultChecked />
+    </ThemeProvider>
   );
 }
 
