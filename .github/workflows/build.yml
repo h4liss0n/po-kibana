@@ -16,9 +16,13 @@ jobs:
       - name: Build web-app
         run: |
           npm ci        
-          npm run build
-      - name: Deploy po-kibana
+          npm run build      
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        # If you're changing the branch from main,
+        # also change the `main` in `refs/heads/main`
+        # below accordingly.
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./build          
