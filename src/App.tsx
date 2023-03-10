@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Checkbox, createTheme, styled, ThemeProvider } from '@mui/material';
+import { Checkbox, Container, createTheme, CssBaseline, styled, ThemeProvider } from '@mui/material';
 import { orange } from '@mui/material/colors';
+import { Envioriment } from './pages/envioriment/Envioriment';
+import { defaultGlobalValue, GlobalValue, PropsGlobalValue } from './context/Context';
 
 
 declare module '@mui/material/styles' {
@@ -21,6 +23,9 @@ declare module '@mui/material/styles' {
 }
 
 const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
   status: {
     danger: orange[500],
   },
@@ -34,10 +39,23 @@ const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
 }));
 
 function App() {
+
+  const [globalValue, setGlobalValue] = useState<PropsGlobalValue>(defaultGlobalValue);
+
   return (
     <ThemeProvider theme={theme}>
-      <CustomCheckbox defaultChecked />
-    </ThemeProvider>
+      <GlobalValue.Provider value={
+        {
+          value: globalValue,
+          setValue: setGlobalValue
+        }}>
+        <CssBaseline />
+        <Container maxWidth="sm">
+          <Envioriment />
+        </Container>
+      </GlobalValue.Provider >
+    </ThemeProvider >
+
   );
 }
 
