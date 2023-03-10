@@ -3,7 +3,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Checkbox, Container, createTheme, CssBaseline, styled, ThemeProvider } from '@mui/material';
+import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import { Envioriment } from './pages/envioriment/Envioriment';
 import { defaultGlobalValue, GlobalValue, PropsGlobalValue } from './context/Context';
@@ -31,12 +31,12 @@ const theme = createTheme({
   },
 });
 
-const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-  color: theme.status.danger,
-  '&.Mui-checked': {
-    color: theme.status.danger,
-  },
-}));
+// const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
+//   color: theme.status.danger,
+//   '&.Mui-checked': {
+//     color: theme.status.danger,
+//   },
+// }));
 
 function App() {
 
