@@ -1,12 +1,24 @@
 import React, { useContext, useMemo } from "react";
-import { Box, Link } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { GlobalValue } from "../../context/Context";
 import { KibanaBuilder } from "../../KibanaBuilder";
+import { RunBook } from "../../RunBooks";
 
+export type PropsStartingCampaign = {
+  runBook: RunBook;
+};
 
-export const StartingCampaign = () => {
+export const StartingCampaign: React.FC<PropsStartingCampaign> = ({
+  runBook: { description, math },
+}) => {
   const globalValue = useContext(GlobalValue);
   const { value } = globalValue;
+
+  const expression = useMemo(() => {
+    return math
+      .replace("{accountId}", value.accountId)
+      .replace("{campaingId}", value.accountId);
+  }, [math, value.accountId]);
 
   const url = useMemo(() => {
     const application = {
@@ -17,15 +29,19 @@ export const StartingCampaign = () => {
 
     const applicationName = value.country ? application[value.country] : "";
 
-    const kibana = new KibanaBuilder().setIndex(applicationName).setQuery(`${value.accountId} and "Starting new campaign (campaign=Campaign(id= ${value.campaignId},"`).build();
-    return kibana.getURL()    
-  }, [value.accountId, value.campaignId, value.country]);
+    const kibana = new KibanaBuilder()
+      .setIndex(applicationName)
+      .setQuery(expression)
+      .build();
+    return kibana.getURL();
+  }, [expression, value.country]);
 
   return (
     <Box>
+      <Typography paragraph>{description}</Typography>
       <Link href={url} variant="body2">
-        {`DIALER Starting new campaign ${value.country}`}
-      </Link>      
+        Link
+      </Link>
     </Box>
   );
 };

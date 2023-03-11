@@ -39,7 +39,7 @@ export class Kibana {
   }
 }
 
-export class KibanaBuilder {  
+export class KibanaBuilder {
   private filter: string;
   private refreshInterval: string;
   private time: string;
@@ -50,13 +50,13 @@ export class KibanaBuilder {
   private query: string;
   private sort: string;
 
-  constructor() {    
+  constructor() {
     this.filter = "filters:!(),";
     this.refreshInterval = "refreshInterval:(pause:!t,value:0),";
     this.time = "time:(from:now-15m,to:now)";
     this.columns = "columns:!(),";
     this.filters = "filters:!(),";
-    this.index = "";
+    this.index = "index:'ca-central-1:td-meza-central',";
     this.interval = "interval:auto,";
     this.query = "query:(language:kuery,query:''),";
     this.sort = "sort:!(!('@timestamp',desc))";
@@ -67,22 +67,19 @@ export class KibanaBuilder {
     return this;
   }
 
-  public setIndex(value: string = 'ca-central-1:td-meza-central'): KibanaBuilder {
-    const defaultValue = "index:'?value?',";    
+  public setIndex(value: string): KibanaBuilder {
+    const defaultValue = "index:'?value?',";
     this.index = defaultValue.replace("?value?", value);
     return this;
   }
 
-  public setQuery(value: string = 'ca-central-1:td-meza-central'): KibanaBuilder {
+  public setQuery(value: string): KibanaBuilder {
     const defaultValue = "query:(language:kuery,query:'?value?'),";
     this.query = defaultValue.replace("?value?", value);
     return this;
   }
 
   public build(): Kibana {
-    if (this.index === "") throw new Error('Index value is required');
-
-
     return new Kibana(
       this.filter,
       this.refreshInterval,
