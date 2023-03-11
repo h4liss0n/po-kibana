@@ -6,6 +6,7 @@ export type PropsGlobalValue = {
   interactionId: string;
   campaignId: string;
   country: CountryApllicationEnum;
+  ready: boolean
 };
 
 export const defaultGlobalValue = {
@@ -13,6 +14,7 @@ export const defaultGlobalValue = {
   interactionId: "",
   campaignId: "",
   country: CountryApllicationEnum.US,
+  ready: false
 };
 
 export const GlobalValue = React.createContext({

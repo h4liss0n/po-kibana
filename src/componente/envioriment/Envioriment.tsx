@@ -12,7 +12,7 @@ type FormValues = {
   accountId: string;
   interactionId: string;
   country: CountryApplicationEnumKeys;
-  campaignId: string
+  campaignId: string;
 };
 
 const resolver: Resolver<FormValues> = async (values) => {
@@ -49,7 +49,7 @@ export const Envioriment = () => {
     defaultValues: {
       accountId: "61c5d7d196ebb0e483f81659",
       country: "US",
-      campaignId: "13698"
+      campaignId: "13698",
     },
   });
   const onSubmit = handleSubmit((data) => {
@@ -57,7 +57,8 @@ export const Envioriment = () => {
       accountId: data.accountId,
       interactionId: data.interactionId,
       country: stringToCountryApllicationEnum(data.country),
-      campaignId: data.campaignId
+      campaignId: data.campaignId,
+      ready: true,
     });
   });
 
@@ -108,7 +109,7 @@ export const Envioriment = () => {
             alignItems="center"
           >
             <Button variant="contained" type="submit">
-              Build 
+              Build
             </Button>
           </Grid>
         </Grid>

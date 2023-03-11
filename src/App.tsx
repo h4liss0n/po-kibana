@@ -17,7 +17,7 @@ import {
   GlobalValue,
   PropsGlobalValue,
 } from "./context/Context";
-import { StartingCampaign } from "./pages/dialer/StartingCampaign";
+import { KibanaLink } from "./componente/kibanaLink/KibanaLink";
 import { RunBooks } from "./RunBooks";
 
 declare module "@mui/material/styles" {
@@ -57,13 +57,15 @@ function App() {
         <CssBaseline />
         <Container>
           <Envioriment />
-          <Grid container spacing={2}>
-            {RunBooks.map((runBook) => (
-              <Grid key={runBook.description}  item xs={6} md={12}>
-                <StartingCampaign runBook={runBook} />
-              </Grid>
-            ))}
-          </Grid>
+          {globalValue.ready && (
+            <Grid container spacing={1}>
+              {RunBooks.map((runBook) => (
+                <Grid key={runBook.description} item xs={6} md={12}>
+                  <KibanaLink runBook={runBook} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Container>
       </GlobalValue.Provider>
     </ThemeProvider>
