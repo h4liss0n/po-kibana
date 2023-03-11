@@ -1,18 +1,21 @@
-import React from 'react';
-
+import React from "react";
+import {
+  CountryApllicationEnum,  
+} from "../common/CountryApplication";
 
 export type PropsGlobalValue = {
-    accountId: string,
-    interactionId: string
-}
-
+  accountId: string;
+  interactionId: string;
+  country: CountryApllicationEnum;
+};
 
 export const defaultGlobalValue = {
-    accountId: "",
-    interactionId: "",
-}
+  accountId: "",
+  interactionId: "",
+  country: CountryApllicationEnum.US,
+};
 
 export const GlobalValue = React.createContext({
-    value: defaultGlobalValue,
-    setValue: (value: PropsGlobalValue) => { }
+  value: defaultGlobalValue,
+  setValue: (value: PropsGlobalValue) => {},
 });

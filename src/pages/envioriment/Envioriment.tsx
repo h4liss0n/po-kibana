@@ -1,69 +1,107 @@
-import { Box, Button, TextField } from '@mui/material';
-import React, { useContext } from 'react';
-import { useForm, Resolver } from 'react-hook-form';
-import { GlobalValue } from '../../context/Context';
+import React, { useContext } from "react";
+import { useForm, Resolver } from "react-hook-form";
+import { GlobalValue } from "../../context/Context";
+import { Box, Button, Grid, TextField } from "@mui/material";
+import {
+  CountryApplicationEnumKeys,
+  stringToCountryApllicationEnum,
+} from "../../common/CountryApplication";
+import { ComboBox, ComboBoxOptions } from "../../componente/ComboBox";
 
 type FormValues = {
-    accountId: string;
-    interactionId: string;
+  accountId: string;
+  interactionId: string;
+  country: CountryApplicationEnumKeys;
 };
 
 const resolver: Resolver<FormValues> = async (values) => {
-    return {
-        values: values.accountId ? values : {},
-        errors: !values.accountId
-            ? {
-                accountId: {
-                    type: 'required',
-                    message: 'This is required.',
-                },
-            }
-            : {},
-    };
+  return {
+    values: values.accountId ? values : {},
+    errors: !values.accountId
+      ? {
+          accountId: {
+            type: "required",
+            message: "This is required.",
+          },
+        }
+      : {},
+  };
 };
 
-
-
 export const Envioriment = () => {
-    const globalValue = useContext(GlobalValue);
-    const { value, setValue } = globalValue
+  const globalValue = useContext(GlobalValue);
+  const { setValue } = globalValue;
 
+  const options: ComboBoxOptions[] = [
+    { key: "US", value: "US", label: "US" },
+    { key: "EU", value: "EU", label: "EU" },
+    { key: "CA", value: "CA", label: "CA" },
+  ];
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
-    const onSubmit = handleSubmit((data) => {
-        setValue(
-            {
-                accountId: data.accountId,
-                interactionId: data.interactionId
-            }
-        )
-
-
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver,
+    defaultValues: {
+      country: "US",
+    },
+  });
+  const onSubmit = handleSubmit((data) => {
+    setValue({
+      accountId: data.accountId,
+      interactionId: data.interactionId,
+      country: stringToCountryApllicationEnum(data.country),
     });
+  });
 
-    return (
-        <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={onSubmit}
-        >
-            <TextField
-                fullWidth
-                margin='normal'
-                label="Account ID"
-                helperText={errors?.accountId && errors.accountId.message}
-                {...register("accountId")}
-            />
-            <TextField
-                fullWidth
-                margin='normal'
-                label="Interaction ID"
-                {...register("interactionId")}
-            />
-            <Button variant="contained" type="submit">Acesss</Button>
-            {JSON.stringify(value)}
-        </Box>
-
-    );
-}
+  return (
+    <Box
+      component="form"
+      noValidate
+      mt={2}
+      autoComplete="off"
+      onSubmit={onSubmit}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={6} md={12}>
+          <TextField
+            fullWidth
+            label="Account ID"
+            helperText={errors?.accountId && errors.accountId.message}
+            {...register("accountId")}
+          />
+        </Grid>
+        <Grid item xs={6} md={12}>
+          <TextField
+            fullWidth
+            label="Interaction ID"
+            {...register("interactionId")}
+          />
+        </Grid>
+        <Grid item xs={6} md={12}>
+          <ComboBox
+            control={control}
+            name="country"
+            label="Country"
+            options={options}
+          />
+        </Grid>
+        <Grid item xs={6} md={12}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+          >
+            <Button variant="contained" type="submit">
+              Acesss
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};

@@ -7,6 +7,7 @@ import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/materia
 import { orange } from '@mui/material/colors';
 import { Envioriment } from './pages/envioriment/Envioriment';
 import { defaultGlobalValue, GlobalValue, PropsGlobalValue } from './context/Context';
+import { StartingCampaign } from './pages/dialer/StartingCampaign';
 
 
 declare module '@mui/material/styles' {
@@ -31,13 +32,6 @@ const theme = createTheme({
   },
 });
 
-// const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-//   color: theme.status.danger,
-//   '&.Mui-checked': {
-//     color: theme.status.danger,
-//   },
-// }));
-
 function App() {
 
   const [globalValue, setGlobalValue] = useState<PropsGlobalValue>(defaultGlobalValue);
@@ -52,6 +46,7 @@ function App() {
         <CssBaseline />
         <Container maxWidth="sm">
           <Envioriment />
+          <StartingCampaign/>
         </Container>
       </GlobalValue.Provider >
     </ThemeProvider >
