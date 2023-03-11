@@ -5,7 +5,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Container, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { orange } from '@mui/material/colors';
-import { Envioriment } from './pages/envioriment/Envioriment';
+import { Envioriment } from './componente/envioriment/Envioriment';
 import { defaultGlobalValue, GlobalValue, PropsGlobalValue } from './context/Context';
 import { StartingCampaign } from './pages/dialer/StartingCampaign';
 
@@ -44,7 +44,7 @@ function App() {
           setValue: setGlobalValue
         }}>
         <CssBaseline />
-        <Container maxWidth="sm">
+        <Container >
           <Envioriment />
           <StartingCampaign/>
         </Container>

@@ -6,12 +6,13 @@ import {
   CountryApplicationEnumKeys,
   stringToCountryApllicationEnum,
 } from "../../common/CountryApplication";
-import { ComboBox, ComboBoxOptions } from "../../componente/ComboBox";
+import { ComboBox, ComboBoxOptions } from "../combobox/ComboBox";
 
 type FormValues = {
   accountId: string;
   interactionId: string;
   country: CountryApplicationEnumKeys;
+  campaignId: string
 };
 
 const resolver: Resolver<FormValues> = async (values) => {
@@ -46,7 +47,9 @@ export const Envioriment = () => {
   } = useForm<FormValues>({
     resolver,
     defaultValues: {
+      accountId: "61c5d7d196ebb0e483f81659",
       country: "US",
+      campaignId: "13698"
     },
   });
   const onSubmit = handleSubmit((data) => {
@@ -54,6 +57,7 @@ export const Envioriment = () => {
       accountId: data.accountId,
       interactionId: data.interactionId,
       country: stringToCountryApllicationEnum(data.country),
+      campaignId: data.campaignId
     });
   });
 
@@ -90,6 +94,13 @@ export const Envioriment = () => {
           />
         </Grid>
         <Grid item xs={6} md={12}>
+          <TextField
+            fullWidth
+            label="Campaign ID"
+            {...register("campaignId")}
+          />
+        </Grid>
+        <Grid item xs={6} md={12}>
           <Grid
             container
             direction="row"
@@ -97,7 +108,7 @@ export const Envioriment = () => {
             alignItems="center"
           >
             <Button variant="contained" type="submit">
-              Acesss
+              Build 
             </Button>
           </Grid>
         </Grid>
